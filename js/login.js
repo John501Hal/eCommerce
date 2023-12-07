@@ -1,11 +1,26 @@
 "strict mode";
 
+// DOM html
 const errorMessage = document.querySelector(".errorMessage");
 const successMessage = document.querySelector(".successMessage");
 const email = document.querySelector("#email");
 const password = document.querySelector("#password");
 const signIn = document.querySelector(".signIn");
 
+const errorText = (text) => (errorMessage.textContent = text);
+
+// shows success message
+const showSuccess = function () {
+  successMessage.classList.remove("hidden");
+  errorMessage.classList.add("hidden");
+};
+
+// shows error message
+const showError = function () {
+  errorMessage.classList.remove("hidden");
+  successMessage.classList.add("hidden");
+};
+// uploads JSON data via post
 const infoFetch = async function () {
   try {
     const webResponse = await fetch("https://api.guerrerosweb.com.mx/login/", {
@@ -21,45 +36,42 @@ const infoFetch = async function () {
 
     const data = await webResponse.json();
     console.log(data);
+    showSuccess();
     if (!data.Datos_Usuario.Validacion) throw new Error("Incorrect email");
     if (data.Datos_Usuario.Validacion === 1)
       throw new Error("Incorrect password");
-    successMessage.classList.remove("hidden");
   } catch (err) {
-    errorMessage.textContent = `${err.message}`;
-    errorMessage.classList.remove("hidden");
-    successMessage.classList.add("hidden");
+    errorText(`${err.message}`);
+    showError();
   }
 };
 
+// checks if email length has required elements
 const emailInfo = function () {
   if (
-    email.value.length >= 5 &&
     email.value.includes("@") &&
     (email.value.includes(".com") ||
       email.value.includes(".org") ||
       email.value.includes(".gov"))
   )
     return true;
-  else
-    errorMessage.textContent =
-      "Eamil is missing @, .com, .org, .gov, or is less than 5 words";
+  else errorText("Email is missing @, .com, .org, or .gov");
   return false;
 };
 
+//  Checks if password length is sufficient
 const passwordInfo = function () {
-  const passwordLength = password.value.length >= 8 ? true : false;
-  errorMessage.textContent = "password is less than 8 letters.";
+  const passwordLength = password.value.length >= 8;
+  !passwordLength ? errorText("password is less than 8 letters.") : null;
+
   return passwordLength;
 };
 
 signIn.addEventListener("click", function (e) {
   e.preventDefault();
-  if (emailInfo() === true && passwordInfo() === true) {
-    errorMessage.classList.add("hidden");
+  if (emailInfo() && passwordInfo()) {
     infoFetch();
   } else {
-    errorMessage.classList.remove("hidden");
-    successMessage.classList.add("hidden");
+    showError();
   }
 });
