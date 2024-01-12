@@ -1,5 +1,9 @@
 "strict mode";
 
+/**
+ When the user logs in with thier email and passsword the API information is being compared to what had been submitted. The formats of the submitted email and passsword are checked if they're valid before being sent to the API. If the formats are valid then they will be compared to the data of the API to see if they're the same.
+ */
+
 // DOM html
 const errorMessage = document.querySelector(".errorMessage");
 const successMessage = document.querySelector(".successMessage");
@@ -34,12 +38,14 @@ const infoFetch = async function () {
       }),
     });
 
+    //JSON data
     const data = await webResponse.json();
-    console.log(data);
-    showSuccess();
+
     if (!data.Datos_Usuario.Validacion) throw new Error("Incorrect email");
     if (data.Datos_Usuario.Validacion === 1)
       throw new Error("Incorrect password");
+    showSuccess();
+    sessionStorage.setItem("Token", data.Token);
   } catch (err) {
     errorText(`${err.message}`);
     showError();
@@ -67,6 +73,7 @@ const passwordInfo = function () {
   return passwordLength;
 };
 
+// Sign in button.
 signIn.addEventListener("click", function (e) {
   e.preventDefault();
   if (emailInfo() && passwordInfo()) {
@@ -75,3 +82,8 @@ signIn.addEventListener("click", function (e) {
     showError();
   }
 });
+
+// logout button
+const logout = function () {
+  sessionStorage.removeItem("Token");
+};
