@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Lato&family=Montserrat:wght@300;500&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./CSS/main.css" />
+  </head>
+  <body>
+    <div class="containerLeft">
+      <div class="successMessage hidden">
+        <p>Welcome!</p>
+      </div>
+      <div class="errorMessage hidden">
+        <p></p>
+      </div>
+
+      <form>
+        <img class="logoImage" src="assets/images/Logo.jpg" alt="logo" />
+
+        <div class="inputFormat">
+          <label for="email">Email</label>
+          <input type="email" id="email" required />
+
+          <label for="password">Password</label>
+          <input type="password" id="password" required />
+        </div>
+
+        <div class="signIn">
+          <input type="submit" value="Sign In" />
+        </div>
+
+        <div class="clicks">
+          <input type="checkbox" id="Remember" />
+          <label for="Remember">Remember me</label>
+
+          <a href="">Forgot Password?</a>
+        </div>
+      </form>
+    </div>
+
+    <div class="containerRight">
+      <div class="loginImage"></div>
+    </div>
+    <script src="./js/login.js"></script>
+  </body>
+</html>
