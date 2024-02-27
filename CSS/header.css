@@ -1,0 +1,32 @@
+* {
+  margin: 0px;
+}
+
+header {
+  max-width: 1170px;
+  /* display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center; */
+}
+
+header .searchBar {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 0px;
+  width: 100%;
+}
+
+header .options {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  font-size: 14px;
+}
+
+header p {
+  padding: 10px 0px;
+  font-size: 12px;
+}
